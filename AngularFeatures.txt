@@ -1,0 +1,69 @@
+# AngularFeatures
+
+1. Can Angular Scale up to 5000 concurrent user.
+2. How to hide the api response in XHR
+Angular Velocity Measurement
+3. Why should i test Angular
+https://serverfault.com/questions/350454/how-do-you-do-load-testing-and-capacity-planning-for-web-sites
+Use cache and check 304 response code
+4. Best practice for function Naming'
+
+5.Note, the “$” suffix in our variable name is simply a naming convention to communicate this variable holds an Observable.
+
+6. all observable unsubscribe if we are not using pipes.
+Not required if we use async
+
+7.AsyncPipe
+
+Before we go any farther; if you are using observable streams via the AsyncPipe then you do not need to worry about unsubscribing. The async pipe will take care of subscribing and unsubscribing for you.
+
+8.*ngFor="let user of users$ | async as users; index as i
+
+9.
+<div *ngIf="user$ | async as user">
+        Hi, {%raw%}{{ user.name }}!{%endraw%}
+    </div>
+
+10.<div *ngIf="condition; else elseBlock">...</div>
+<ng-template #elseBlock>...</ng-template> 
+
+11.<div *ngIf="condition; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>...</ng-template>
+<ng-template #elseBlock>...</ng-template> 
+
+12.	 myThenBlock: TemplateRef<any> = null;
+
+13.  @ViewChild('firstThenBlock')
+	 firstThenBlock: TemplateRef<any> = null;
+
+14. private productsObservable : Observable<any[]> ; 
+ this.productsObservable = this.httpClient.get(this.baseUrl + '/products');
+
+ <li *ngFor="let product of productsObservable | async " >
+    -- id: 
+    -- name: 
+    -- cost: 
+    -- quantity: 
+  </li>
+
+15. Create DataTypes
+export class Product {
+    id: number;
+    name: string;
+    cost: number;
+    quantity: number;
+    locationId: number;
+    familyId: number;
+    constructor() { }
+} 
+
+private products : Product[] = []; 
+
+private productsObservable : Observable<Product[]> ; 
+
+    this.productsObservable = this.dataService.get_products();
+
+
+16.Injectable HttpInterceprtor that can be injected HttpClient
+
+17. Query predicates can be renamed LQuery and LQuery to LQueries
