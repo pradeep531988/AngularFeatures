@@ -1,5 +1,7 @@
 # AngularFeatures
 
+Setup Lint
+
 1. Can Angular Scale up to 5000 concurrent user.
 2. How to hide the api response in XHR
 Angular Velocity Measurement
@@ -8,7 +10,7 @@ https://serverfault.com/questions/350454/how-do-you-do-load-testing-and-capacity
 Use cache and check 304 response code
 4. Best practice for function Naming'
 
-5.Note, the “$” suffix in our variable name is simply a naming convention to communicate this variable holds an Observable.
+5.Note, the $ suffix in our variable name is simply a naming convention to communicate this variable holds an Observable.
 
 6. all observable unsubscribe if we are not using pipes.
 Not required if we use async
