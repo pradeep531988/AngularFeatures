@@ -1,6 +1,17 @@
 # AngularFeatures
 
+
+@Injectable({
+  // we declare that this service should be created
+  // by the root application injector.
+  providedIn: 'root',
+})
+
 Setup Lint
+
+Setup Logger
+
+https://angular.io/guide/dependency-injection#injectable-ngmodule-or-component
 
 1. Can Angular Scale up to 5000 concurrent user.
 2. How to hide the api response in XHR
