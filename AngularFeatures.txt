@@ -13,6 +13,13 @@ Setup Logger
 
 https://angular.io/guide/dependency-injection#injectable-ngmodule-or-component
 
+https://www.intertech.com/Blog/deploying-angular-4-apps-with-environment-specific-info/
+
+Setup Karma and PhantomJS
+
+Even better, make a lint rule for detecting observables that are not unsubscribed.
+
+
 1. Can Angular Scale up to 5000 concurrent user.
 2. How to hide the api response in XHR
 Angular Velocity Measurement
