@@ -1,5 +1,46 @@
-# AngularFeatures
+﻿# AngularFeatures
 
+@NgModule({imports:[], exports:[],declartions:[],providers:[]})?
+
+/**
+We can use Services for shared data service
+@Injectable({
+})
+export class Service{
+private String backgroundColor = 'yellow'
+get backgroundColor(){
+ return this.backgroundColor;
+}
+
+set backgroundColor(text){
+  this.backgroundColor = text;
+}
+
+}
+//Component
+@Component({
+selector: 'component1'
+template: ` <input type="text" [(ngModel)]=backgroundColor [style.background]=backgroundColor>
+private _service : Service 
+
+const(private _service1: Service){
+   this._service = _service1
+   // Note if we use new Keyword for assigning like below then on close of component the value will be reset
+   // this._service = new Service();
+}
+
+//Component
+@Component({
+selector: 'component2'
+template: ` <input type="text" [(ngModel)]=backgroundColor [style.background]=backgroundColor>
+private _service : Service 
+
+const(private _service1: Service){
+   this._service = _service1
+}
+
+In above case if we update value in input box of component1 and navigate to another component2 then the value will be updated, its called shared data service.
+**/
 
 @Injectable({
   // we declare that this service should be created
@@ -8,6 +49,45 @@
 })
 
 Setup Lint
+component should just have only presentation value any http is to be written in service.
+
+//What is singleton patttern:
+Assume that you create a service and we try to register the service in App Module, then single object of service is created and when we do injection in component using constructor then single object will be autowired.
+So howmuch ever components we have, we will be having single instance of service.
+
+For injecting service in component why are we not creating @inject because @component internally contains injectable features.
+
+If one service is dependent on another service then we use @Injectable.
+
+** Core Module is a Service Module and should be imported only in AppModule
+   Eg: UserModule has services like SignUpService,SignInService,SocialAuthService and UserProfileService.
+   So where ever i import UserModule all the service will be aviailable.
+ where as
+** SharedModule is set of Components,Directive,Pipes 
+   E.g: UIModule has all these ButtonComponent, NavComponent, SlideShowComponent, HighlightLinkDirective,CtaPipe.
+   So everytime we need to use one or all of its exported elements, you import just the UIModule.
+   So basically, due to how angular deals with services, when you start splitting functionalities into feature modules, you have to 
+   isolate the services into their own modules, while other stuff can be onrganized betwee them a you wish.
+   
+   Core module is ServiceModule and SharedModule is Widget modules. So we have to import coremodule into AppModule and latter in all modules that need it.
+   From above example the UserModule would be imported by the CoreModule and UIModule by the SharedModule.
+   
+   Personally, I think that the biggest confusion is regarding the naming choices. In general, people will think that everything that is part of your app's core (i.e. User stuff, NavBar, load bar, toasters etc) will go into the CoreModule and everything that's shared across multiple features would go into the SharedModule.
+   That's not actually true and a bit misleading, since all services are shared between all modules "by nature" and no service should be included in the SharedModule, as well as a NavbarComponent is part of the core of your app and no component should be included in the CoreModule.
+   
+FEATURE   CAN BE                 SOME
+MODULE    IMPORTED BY            EXAMPLES
+
+Domain    Feature, AppModule     ContactModule (before routing)
+Routed    Nobody                 ContactModule, DashboardModule,
+Routing   Feature (for routing)  AppRoutingModule, ContactRoutingModule
+Service   AppModule              HttpModule, CoreModule
+Widget    Feature                CommonModule, SharedModule
+
+https://stackoverflow.com/questions/42695931/angular2-coremodule-vs-sharedmodule
+
+SharedModule Service :
+https://www.gurustop.net/blog/2017/02/14/shared-modules-in-angular-apps-providers-best-practices-and-what-does-forroot-do/
 
 Setup Logger
 
