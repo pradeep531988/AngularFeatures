@@ -2,6 +2,10 @@
 
 @NgModule({imports:[], exports:[],declartions:[],providers:[]})?
 
+/** 
+	Make proper handling of back button.
+**/
+
 /**
 We can use Services for shared data service
 @Injectable({
@@ -48,14 +52,37 @@ In above case if we update value in input box of component1 and navigate to anot
   providedIn: 'root',
 })
 
+make all the service provided in root
+@Injectable({
+  providedIn: 'root'
+})
+
 Setup Lint
 component should just have only presentation value any http is to be written in service.
+
+***
+Mark all your core module components with <cm-name>
+
+***
+Note core modules are singleton and all the components are mainly used in app module.
+except service which will be injected 
+
+**
+Use @SkipSelf @Optional for singleton pattern.
+
+**
+All lazy loaded modules dont import to AppModule,
+Instead create AppRouter with loadChilder: path#Module and then include in AppModule, and corresponding Modules create router and
+add router default= '' with component and load it as router.forChild(router)
+
 
 //What is singleton patttern:
 Assume that you create a service and we try to register the service in App Module, then single object of service is created and when we do injection in component using constructor then single object will be autowired.
 So howmuch ever components we have, we will be having single instance of service.
 
 For injecting service in component why are we not creating @inject because @component internally contains injectable features.
+
+Only for service extension is not required.
 
 If one service is dependent on another service then we use @Injectable.
 
@@ -86,9 +113,79 @@ Widget    Feature                CommonModule, SharedModule
 
 https://stackoverflow.com/questions/42695931/angular2-coremodule-vs-sharedmodule
 
+https://blog.chai-jay.com/angular-core-vs-shared-modules/
+
 SharedModule Service :
 https://www.gurustop.net/blog/2017/02/14/shared-modules-in-angular-apps-providers-best-practices-and-what-does-forroot-do/
 
+Folder Structure:
+https://medium.com/@motcowley/angular-folder-structure-d1809be95542
+
+Folder Structure:
+
+---Details 1 with example---
+
+- app.module.ts
+- app.component.ts
+- modules
+    - login
+       - components
+          - input
+            input.component.ts
+          - pwCheck
+            pwCheck.component.ts
+       - pages
+          - login
+            login.page.ts
+       login.service.ts
+       login.module.ts
+       login.routes.ts
+
+    - organisation
+       - components
+          - input
+            input.component.ts
+          - pwCheck
+            pwCheck.component.ts
+       - pages
+          - organisation
+            organisation.page.ts
+          - robot
+            robot.page.ts
+       organisation.service.ts
+       organisation.module.ts
+       organisation.routes.ts
+- shared
+   - components
+   - mocks
+   - models
+   - ...
+   
+
+----Details 2----
+- app.module.ts
+- app.component.ts
+- modules
+    - module1
+       - components
+       - pages
+       module1.service.ts
+       module1.module.ts
+       module1.routes.ts
+
+    - module2
+       - components
+       - pages
+       module2.service.ts
+       module2.module.ts
+       module2.routes.ts
+- shared
+   - components
+   - mocks
+   - models
+   - directives
+   - pipes
+   
 Setup Logger
 
 https://angular.io/guide/dependency-injection#injectable-ngmodule-or-component
@@ -99,6 +196,7 @@ Setup Karma and PhantomJS
 
 Even better, make a lint rule for detecting observables that are not unsubscribed.
 
+Single Responsibility Principle for components
 
 1. Can Angular Scale up to 5000 concurrent user.
 2. How to hide the api response in XHR
@@ -166,4 +264,13 @@ private productsObservable : Observable<Product[]> ;
 
 16.Injectable HttpInterceprtor that can be injected HttpClient
 
-17. Query predicates can be renamed LQuery and LQuery to LQueries
+17. Query predicates can be renamed LQuery and LQuery to 
+
+18. However, in Angular, a page is a component, or at least a collection of components. In our website, we very much have a concept of navigating to particular pages. In other Angular apps, this would almost certainly not be the case. So, I was keen to bring in the idea of pages in order to lighten that components folder.
+www.awesome-o.com/login
+www.awesome-o.com/dashboard
+www.awesome-o.com/organisation/robot
+But wait, if we’re putting the ‘page’ component with the module, why don’t we just put all related components for a module in the module folder?? And while we’re at it, any services related to the module in with the module? Each module is essentially its own self-contained app.
+
+What about sharing components?! Someone once screamed at me. The whole point of components is to make them easy to share! Well, we can have a shared folder for any components like that. Putting that altogether
+
